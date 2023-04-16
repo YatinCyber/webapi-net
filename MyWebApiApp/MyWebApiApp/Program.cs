@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using MyWebApiApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +13,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => options.AddDefaultPolicy(
     policy=> policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
     ));
+
+//dang ky
+builder.Services.AddDbContext<BookStoreContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BookStore"));
+});
 
 var app = builder.Build();
 
